@@ -56,14 +56,15 @@ function checkCollision(){
     var newBallYPos = ballYPos + ballYDir;
     if(newBallXPos > window.innerWidth-50 && 
         newBallYPos > paddleRightTop &&
-        newBallYPos < paddleRightTop +150)
+        newBallYPos < paddleRightTop +200)
        {
         ballXDir = -Math.abs(ballXDir);
         return true;
         }
+    
     if(newBallXPos < 20 && 
         newBallYPos > paddleLeftTop &&
-        newBallYPos < paddleLeftTop +150
+        newBallYPos < paddleLeftTop + 200
     )
        {
         ballXDir = Math.abs(ballXDir);
@@ -72,19 +73,30 @@ function checkCollision(){
        
     return false;
 }
-
+function Scored(side){
+    if(side === "left"){
+        leftScore = leftScore + 1
+        leftScoreDisplay.innerHTML = leftScore;
+    }
+    else{
+        rightScore = rightScore + 1;
+        rightScoreDisplay.innerHTML = rightScore;
+    }
+}
 function moveBall(){
     var newBallXPos = ballXPos + ballXDir;
     var newBallYPos = ballYPos + ballYDir;
     if(!checkCollision()){
         if(newBallXPos + ballWidth > window.innerWidth){
             ballXDir = -Math.abs(ballXDir);
+            Scored("left");
         }
         if (newBallYPos + ballHeight > window.innerHeight) {
             ballYDir = -Math.abs(ballYDir);
         }
         if (newBallXPos < 0) {
             ballXDir = Math.abs(ballXDir);
+            Scored("right");
         }
         if (newBallYPos < 0) {
             ballYDir = Math.abs(ballYDir);
@@ -103,7 +115,6 @@ document.addEventListener('keydown', function(evt) {
             if (!paddleRightTimer) {
                     paddleRightDirection = 10;
                     paddleRightTimer = setInterval(moveRightPaddleDown, 50);
-                    console.log(paddleRightTop)
             }
             break;
         case 'ArrowUp':
@@ -125,7 +136,7 @@ document.addEventListener('keydown', function(evt) {
             }
             break;
     }
-    console.log(evt);
+    //console.log(evt);
 })
 document.addEventListener('keyup', function(evt) {
     switch (evt.code) {
@@ -140,7 +151,7 @@ document.addEventListener('keyup', function(evt) {
             paddleLeftTimer = null;
             break;
     }
-    console.log(evt);
+    //console.log(evt);
 })
 
 setInterval(moveBall, 25 );
