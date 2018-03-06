@@ -1,0 +1,41 @@
+html,body {
+    padding: 0;
+    margin: 0;
+    background-color: black;
+    
+}
+#left-paddle{
+    background-color: yellowgreen;
+    left:20px;
+}
+#right-paddle{
+    background-color: yellowgreen;
+    right:20px;
+}
+.paddle {
+    top: 35%;
+    height: 200px;
+    width: 10px;
+    position: absolute;
+}
+.ball{
+    height:20px;
+    width:20px;
+    right:50%;
+    top:50%;
+    border-radius: 10px;
+    position: absolute;
+    background-color: yellowgreen;
+}
+#left-score{
+    color: white;
+    position: absolute;
+    left: 40%;
+    font-size: 50;
+}
+#right-score{
+    color: white;
+    position: absolute;
+    left: 60%;
+    font-size: 50;
+}
