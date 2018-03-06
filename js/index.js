@@ -154,4 +154,4 @@ document.addEventListener('keyup', function(evt) {
     //console.log(evt);
 })
 
-setInterval(moveBall, 25 );
+setInterval(moveBall, 15 );
