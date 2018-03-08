@@ -39,3 +39,11 @@ html,body {
     left: 60%;
     font-size: 50;
 }
+
+.middle{
+    height: 100%;
+    width:1px;
+    left:50%;
+    position: absolute;
+    background-color: white;
+}

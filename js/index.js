@@ -22,7 +22,17 @@ var rightScoreDisplay = document.getElementById('right-score');
 var leftScore = 0;
 var rightScore = 0;
 var windowsize = window.innerHeight - 213;
+var ballTimer;
+var ballCount = 0;
 
+
+for (var i = 0; i < radios.length; i++) {
+    if (radios[i].type === 'radio' && radios[i].checked) {
+        // get value, set checked flag or do whatever you need to
+        value = radios[i].value; 
+        console.log("value"+value);      
+    }
+}
 
 function moveLeftPaddleDown() {
     if(paddleLeftTop < windowsize){
@@ -59,6 +69,7 @@ function checkCollision(){
         newBallYPos < paddleRightTop +200)
        {
         ballXDir = -Math.abs(ballXDir);
+        increaseTimer();
         return true;
         }
     
@@ -68,6 +79,7 @@ function checkCollision(){
     )
        {
         ballXDir = Math.abs(ballXDir);
+        increaseTimer();
         return true;
         }
        
@@ -77,10 +89,12 @@ function Scored(side){
     if(side === "left"){
         leftScore = leftScore + 1
         leftScoreDisplay.innerHTML = leftScore;
+        checkIsGameOver(side);
     }
     else{
         rightScore = rightScore + 1;
         rightScoreDisplay.innerHTML = rightScore;
+        checkIsGameOver(side);
     }
 }
 function moveBall(){
@@ -90,6 +104,7 @@ function moveBall(){
         if(newBallXPos + ballWidth > window.innerWidth){
             ballXDir = -Math.abs(ballXDir);
             Scored("left");
+            resetTimer();
         }
         if (newBallYPos + ballHeight > window.innerHeight) {
             ballYDir = -Math.abs(ballYDir);
@@ -97,6 +112,7 @@ function moveBall(){
         if (newBallXPos < 0) {
             ballXDir = Math.abs(ballXDir);
             Scored("right");
+            resetTimer();
         }
         if (newBallYPos < 0) {
             ballYDir = Math.abs(ballYDir);
@@ -153,5 +169,27 @@ document.addEventListener('keyup', function(evt) {
     }
     //console.log(evt);
 })
+function resetTimer(){
+    ballCount = 0;
+    clearInterval(ballTimer);
+    ballTimer = setInterval(moveBall, 15 );
+}
+function increaseTimer(){
+    if(ballCount != 14){
+        ballCount = ballCount + 1;
+        clearInterval(ballTimer);
+        ballTimer = setInterval(moveBall, 15 - ballCount );
+    }
+}
+function checkIsGameOver(winner){
+    if(leftScore == 10 || rightScore == 10 ){ 
+        alert("PLAYER " + winner + " wins, Press ok to reset the game");
+        leftScore = 0; rightScore = 0;
+        leftScoreDisplay.innerHTML = 0; rightScoreDisplay.innerHTML = 0;
+    }
+}
 
-setInterval(moveBall, 15 );
+ballTimer = setInterval(moveBall, 15 );
+
+
+
